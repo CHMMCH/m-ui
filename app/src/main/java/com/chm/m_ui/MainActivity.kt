@@ -2,9 +2,7 @@ package com.chm.m_ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.chm.m.library.log.MLog
-import com.chm.m.library.log.MLogConfig
-import com.chm.m.library.log.MLogManager
+import com.chm.m.library.log.*
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -13,8 +11,12 @@ class MainActivity : AppCompatActivity() {
 
         MLogManager.init(object : MLogConfig(){
 
-        })
+            override fun includeTread(): Boolean {
+                return true
+            }
 
-        MLog.a("ss")
+        },MConsolePrinter())
+
+        MLog.a("test")
     }
 }

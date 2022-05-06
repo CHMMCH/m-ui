@@ -3,7 +3,9 @@ package com.chm.m.ui.tab.bottom;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -17,6 +19,11 @@ import com.chm.m.ui.tab.common.IMTab;
  * @Time: 2022/4/25 17:28
  */
 public class MTabBottom extends RelativeLayout implements IMTab<MTabBottomInfo<?>> {
+
+    private MTabBottomInfo<?> tabInfo;
+    private ImageView tabImageView;
+    private TextView tabIconView;
+    private TextView tabNameView;
 
     public MTabBottom(Context context) {
         this(context,null);
