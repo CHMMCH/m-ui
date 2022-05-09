@@ -8,7 +8,7 @@ import androidx.annotation.Nullable;
 import java.util.List;
 
 /**
- * @Desc : tabLayout接口
+ * @Desc : MTabBottom容器的对外接口
  * @Author: chenhongmou
  * @Time: 2022/4/25 16:20
  */

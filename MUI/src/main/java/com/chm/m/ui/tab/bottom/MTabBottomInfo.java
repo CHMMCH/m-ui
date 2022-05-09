@@ -5,7 +5,7 @@ import android.graphics.Bitmap;
 import androidx.fragment.app.Fragment;
 
 /**
- * @Desc : MTabBottom 实体类
+ * @Desc : MTabBottom 实体类（数据模型）
  * @Author: chenhongmou
  * @Time: 2022/4/25 16:31
  */

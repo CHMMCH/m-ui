@@ -4,7 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Px;
 
 /**
- * @Desc : tab接口
+ * @Desc : MTabBottom的对外接口
  * @Author: chenhongmou
  * @Time: 2022/4/25 16:27
  */
