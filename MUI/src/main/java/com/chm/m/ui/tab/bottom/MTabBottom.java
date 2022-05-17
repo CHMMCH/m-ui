@@ -96,6 +96,10 @@ public class MTabBottom extends RelativeLayout implements IMTab<MTabBottomInfo<?
 
     }
 
+    public MTabBottomInfo<?> getMTabInfo(){
+        return tabInfo;
+    }
+
     public ImageView getTabImageView(){
         return tabImageView;
     }

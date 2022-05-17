@@ -3,8 +3,10 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/zs/muke/m-ui/MUI/src/main/res/layout/m_bottom_layout_bg.xml" value="0.36614583333333334" />
         <entry key="..\:/zs/muke/m-ui/MUI/src/main/res/layout/m_tab_bottom.xml" value="0.36614583333333334" />
         <entry key="..\:/zs/muke/m-ui/app/src/main/res/layout/activity_main.xml" value="0.36614583333333334" />
+        <entry key="..\:/zs/muke/m-ui/app/src/main/res/layout/activity_mtab_bottom_demo.xml" value="0.36614583333333334" />
       </map>
     </option>
   </component>
