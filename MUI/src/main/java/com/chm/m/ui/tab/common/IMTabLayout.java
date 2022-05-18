@@ -23,8 +23,8 @@ public interface IMTabLayout<Tab extends ViewGroup, D> {
     void inflateInfo(@NonNull List<D> infoList);
 
     //当底部tab被选中时返回 选中index 上一个选中的数据和下一个选中的数据
-    interface OnTabSelectedListener<D>{
-        void onTabSelectedChange(int index, @Nullable D prevInfo,@NonNull D nextInfo);
+    interface OnTabSelectedListener<D> {
+        void onTabSelectedChange(int index, @Nullable D prevInfo, @NonNull D nextInfo);
     }
 
 

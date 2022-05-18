@@ -3,17 +3,22 @@ package com.chm.m.ui.tab.bottom;
 import android.content.Context;
 import android.graphics.Color;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.FrameLayout;
+import android.widget.ScrollView;
 import android.widget.ViewFlipper;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.chm.m.library.util.MDisplayUtil;
+import com.chm.m.library.util.MViewUtil;
 import com.chm.m.ui.R;
 import com.chm.m.ui.tab.common.IMTabLayout;
 
@@ -58,11 +63,11 @@ public class MTabBottomLayout extends FrameLayout implements IMTabLayout<MTabBot
     @Override
     public MTabBottom findTab(@NonNull MTabBottomInfo<?> info) {
         ViewGroup ll = findViewWithTag(TAG_TAB_BOTTOM);
-        for (int i = 0;i<getChildCount();i++){
+        for (int i = 0; i < getChildCount(); i++) {
             View child = ll.getChildAt(i);
-            if (child instanceof MTabBottom){
+            if (child instanceof MTabBottom) {
                 MTabBottom tab = (MTabBottom) child;
-                if (tab.getMTabInfo() == info){
+                if (tab.getMTabInfo() == info) {
                     return tab;
                 }
             }
@@ -95,13 +100,13 @@ public class MTabBottomLayout extends FrameLayout implements IMTabLayout<MTabBot
 
         //清除之前添加的MTabBottom listener  java foreach remove 问题
         Iterator<OnTabSelectedListener<MTabBottomInfo<?>>> iterator = tabSelectedChangeListener.iterator();
-        while (iterator.hasNext()){
-            if (iterator.next() instanceof MTabBottom){
+        while (iterator.hasNext()) {
+            if (iterator.next() instanceof MTabBottom) {
                 iterator.remove();
             }
         }
 
-        int height = MDisplayUtil.dp2px(tabBottomHeight,getResources());
+        int height = MDisplayUtil.dp2px(tabBottomHeight, getResources());
         FrameLayout fl = new FrameLayout(getContext());
         fl.setTag(TAG_TAB_BOTTOM);
         //屏幕宽度/list个数 得出每一个list的平均宽度
@@ -109,7 +114,7 @@ public class MTabBottomLayout extends FrameLayout implements IMTabLayout<MTabBot
 
         for (int i = 0; i < infoList.size(); i++) {
             MTabBottomInfo<?> info = infoList.get(i);
-            LayoutParams params = new LayoutParams(width,height);
+            LayoutParams params = new LayoutParams(width, height);
             //Tips:为何不用LinearLayout:当动态改变child大小后Gravity.Bottom会失效
             params.gravity = Gravity.BOTTOM;
             //左边距
@@ -118,7 +123,7 @@ public class MTabBottomLayout extends FrameLayout implements IMTabLayout<MTabBot
             MTabBottom tabBottom = new MTabBottom(getContext());
             tabSelectedChangeListener.add(tabBottom);
             tabBottom.setMTabInfo(info);
-            fl.addView(tabBottom,params);
+            fl.addView(tabBottom, params);
             tabBottom.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -129,7 +134,8 @@ public class MTabBottomLayout extends FrameLayout implements IMTabLayout<MTabBot
         LayoutParams flParams = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
         flParams.gravity = Gravity.BOTTOM;
         addBottomLine();
-        addView(fl,flParams);
+        addView(fl, flParams);
+        fixContentView();
     }
 
     public void setTabAlpha(float alpha) {
@@ -149,20 +155,20 @@ public class MTabBottomLayout extends FrameLayout implements IMTabLayout<MTabBot
     }
 
 
-    private void addBottomLine(){
+    private void addBottomLine() {
         View bottomLine = new View(getContext());
         bottomLine.setBackgroundColor(Color.parseColor(bottomLineColor));
-        LayoutParams bottomLineParams = new LayoutParams(LayoutParams.MATCH_PARENT,MDisplayUtil.dp2px(bottomLineHeight,getResources()));
+        LayoutParams bottomLineParams = new LayoutParams(LayoutParams.MATCH_PARENT, MDisplayUtil.dp2px(bottomLineHeight, getResources()));
         bottomLineParams.gravity = Gravity.BOTTOM;
-        bottomLineParams.bottomMargin = MDisplayUtil.dp2px(tabBottomHeight - bottomLineHeight,getResources());
-        addView(bottomLine,bottomLineParams);
+        bottomLineParams.bottomMargin = MDisplayUtil.dp2px(tabBottomHeight - bottomLineHeight, getResources());
+        addView(bottomLine, bottomLineParams);
         bottomLine.setAlpha(bottomAlpha);
     }
 
 
-    private void onSelected(@NonNull MTabBottomInfo<?> nextInfo){
-        for (OnTabSelectedListener<MTabBottomInfo<?>>listener:tabSelectedChangeListener){
-            listener.onTabSelectedChange(infoList.indexOf(nextInfo),selectedInfo,nextInfo);
+    private void onSelected(@NonNull MTabBottomInfo<?> nextInfo) {
+        for (OnTabSelectedListener<MTabBottomInfo<?>> listener : tabSelectedChangeListener) {
+            listener.onTabSelectedChange(infoList.indexOf(nextInfo), selectedInfo, nextInfo);
         }
         this.selectedInfo = nextInfo;
     }
@@ -178,11 +184,27 @@ public class MTabBottomLayout extends FrameLayout implements IMTabLayout<MTabBot
     }
 
     //修复内容区域的底部padding
-    private void fixContentView(){
-        if (!(getChildAt(0) instanceof ViewGroup)){
+    private void fixContentView() {
+        if (!(getChildAt(0) instanceof ViewGroup)) {
             return;
         }
-        ViewGroup rootView  = (ViewGroup) getChildAt(0);
+        ViewGroup rootView = (ViewGroup) getChildAt(0);
+
+        //找出对应的滚动容器控件 在添加padding 防止导航栏挡住滚动内容
+        ViewGroup targetView = MViewUtil.findTypeView(rootView, RecyclerView.class);
+        if (targetView == null) {
+            targetView = MViewUtil.findTypeView(rootView, ScrollView.class);
+        }
+        if (targetView == null) {
+            targetView = MViewUtil.findTypeView(rootView, AbsListView.class);
+        }
+
+        if (targetView != null) {
+            targetView.setPadding(0, 0, 0, MDisplayUtil.dp2px(tabBottomHeight, getResources()));
+            targetView.setClipToPadding(false);
+        }
 
     }
+
+
 }

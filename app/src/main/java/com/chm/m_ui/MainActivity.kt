@@ -17,10 +17,10 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     override fun onClick(v: View?) {
-       when (v!!.id){
-           R.id.bt_tab_bottom -> {
-               startActivity(Intent(this,MTabBottomDemoActivity::class.java))
-           }
-       }
+        when (v!!.id) {
+            R.id.bt_tab_bottom -> {
+                startActivity(Intent(this, MTabBottomDemoActivity::class.java))
+            }
+        }
     }
 }

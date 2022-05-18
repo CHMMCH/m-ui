@@ -10,11 +10,11 @@ import com.chm.m.library.log.MLogManager
  * @Author: chenhongmou
  * @Time: 2022/5/17 17:28
  */
-class MApplication : Application(){
+class MApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        MLogManager.init(object : MLogConfig(){
+        MLogManager.init(object : MLogConfig() {
 
             override fun includeTread(): Boolean {
                 return false
@@ -24,7 +24,7 @@ class MApplication : Application(){
                 return 0
             }
 
-        },MConsolePrinter())
+        }, MConsolePrinter())
     }
 
 }

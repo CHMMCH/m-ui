@@ -8,7 +8,7 @@ import androidx.annotation.Px;
  * @Author: chenhongmou
  * @Time: 2022/4/25 16:27
  */
-public interface IMTab<D> extends IMTabLayout.OnTabSelectedListener<D>{
+public interface IMTab<D> extends IMTabLayout.OnTabSelectedListener<D> {
 
     void setMTabInfo(@NonNull D data);
 

@@ -11,8 +11,8 @@ import androidx.fragment.app.Fragment;
  */
 public class MTabBottomInfo<Color> {
 
-    public enum TabType{
-        BITMAP,ICON
+    public enum TabType {
+        BITMAP, ICON
     }
 
     public Class<? extends Fragment> fragment;
@@ -21,7 +21,7 @@ public class MTabBottomInfo<Color> {
     public Bitmap selectedBitmap;
     public String iconFont;
     /**
-     *  Tips:在java代码中直接设置iconfont字符串无效，需要定义在string.xml
+     * Tips:在java代码中直接设置iconfont字符串无效，需要定义在string.xml
      */
     public String defaultIconName;
     public String selectedIconName;
@@ -29,14 +29,14 @@ public class MTabBottomInfo<Color> {
     public Color tintColor;
     public TabType tabType;
 
-    public MTabBottomInfo(String name,Bitmap defaultBitmap,Bitmap selectedBitmap){
+    public MTabBottomInfo(String name, Bitmap defaultBitmap, Bitmap selectedBitmap) {
         this.name = name;
         this.defaultBitmap = defaultBitmap;
         this.selectedBitmap = selectedBitmap;
         this.tabType = TabType.BITMAP;
     }
 
-    public MTabBottomInfo(String name,String iconFont, String defaultIconName, String selectedIconName, Color defaultColor, Color tintColor){
+    public MTabBottomInfo(String name, String iconFont, String defaultIconName, String selectedIconName, Color defaultColor, Color tintColor) {
         this.name = name;
         this.iconFont = iconFont;
         this.defaultIconName = defaultIconName;
